@@ -16,6 +16,14 @@ WaveJSON is an application of the [JSON](http://json.org/) format. The purpose o
 
 The engine is using [WaveDromSkin](unpacked/README.md) skin mechanism to render a complete picture.
 
+### Sequential logic symbols (fork extension)
+
+Logic diagrams can mix existing `assign` gate trees with named-port D flip-flops,
+transparent latches, SR latches, timers, counters and one-shots. Symbols include
+clock-edge triangles, active-low control bubbles, asynchronous set/reset and
+optional complementary outputs. See [the format and examples](docs/sequential-logic.md).
+These blocks render circuit intent; they do not simulate state or generate timing waveforms.
+
 ## Server
 
 svg.wavedrom.com
