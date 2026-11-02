@@ -34,6 +34,8 @@ component:
 }
 ```
 
+![D flip-flop U1 with request and clock inputs, active-low asynchronous reset, and ready and ready_n outputs.](sequential-example.svg)
+
 Here `ready` is the selected output net. The optional `complement` names a second
 output of the opposite polarity. `initial: 0` is an annotation supplied by the
 author; it does not initialize or run a model.
