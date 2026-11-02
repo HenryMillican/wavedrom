@@ -1,0 +1,96 @@
+<svg id="svgcontent_0" width="620" height="220" viewBox="0 0 620 220" fill="#000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="WaveDrom">
+  <style>.circuit-net:hover .circuit-wire{stroke:#087ac1;stroke-width:2}.circuit-net:hover .circuit-junction{fill:#087ac1}.circuit-net:hover{cursor:crosshair}</style>
+  <rect width="620" height="220" fill="#fff" stroke="none"/>
+  <text x="20" y="24" style="font-family:monospace;font-size:12px;font-weight:500;fill:#000;stroke:none">Capture an enabled request</text>
+  <g class="circuit-net" data-net="enable">
+    <title>enable</title>
+    <path class="circuit-wire-underlay" d="M100,60L180,60" fill="none" stroke="#fff" stroke-width="3"/>
+    <path class="circuit-wire" data-edge="enable-G1" data-source-node="enable" data-source-port="OUT" data-target-node="G1" data-target-port="A" data-source-x="100" data-source-y="60" data-target-x="180" data-target-y="60" d="M100,60L180,60" fill="none" stroke="#000" stroke-width="1"/>
+  </g>
+  <g class="circuit-net" data-net="valid">
+    <title>valid</title>
+    <path class="circuit-wire-underlay" d="M100,100L140,100L140,76L180,76" fill="none" stroke="#fff" stroke-width="3"/>
+    <path class="circuit-wire" data-edge="valid-G1" data-source-node="valid" data-source-port="OUT" data-target-node="G1" data-target-port="B" data-source-x="100" data-source-y="100" data-target-x="180" data-target-y="76" d="M100,100L140,100L140,76L180,76" fill="none" stroke="#000" stroke-width="1"/>
+  </g>
+  <g class="circuit-net" data-net="capture_data">
+    <title>capture_data</title>
+    <path class="circuit-wire-underlay" d="M252,68L320,68" fill="none" stroke="#fff" stroke-width="3"/>
+    <path class="circuit-wire" data-edge="G1-U1" data-source-node="G1" data-source-port="Y" data-target-node="U1" data-target-port="D" data-source-x="252" data-source-y="68" data-target-x="320" data-target-y="68" d="M252,68L320,68" fill="none" stroke="#000" stroke-width="1"/>
+  </g>
+  <g class="circuit-net" data-net="clk">
+    <title>clk</title>
+    <path class="circuit-wire-underlay" d="M100,180L280,180L280,84L320,84" fill="none" stroke="#fff" stroke-width="3"/>
+    <path class="circuit-wire" data-edge="clock-U1" data-source-node="clock" data-source-port="OUT" data-target-node="U1" data-target-port="CLK" data-source-x="100" data-source-y="180" data-target-x="320" data-target-y="84" d="M100,180L280,180L280,84L320,84" fill="none" stroke="#000" stroke-width="1"/>
+  </g>
+  <g class="circuit-net" data-net="captured">
+    <title>captured</title>
+    <path class="circuit-wire-underlay" d="M432,68L500,68" fill="none" stroke="#fff" stroke-width="3"/>
+    <path class="circuit-wire" data-edge="U1-captured" data-source-node="U1" data-source-port="Q" data-target-node="captured" data-target-port="IN" data-source-x="432" data-source-y="68" data-target-x="500" data-target-y="68" d="M432,68L500,68" fill="none" stroke="#000" stroke-width="1"/>
+  </g>
+  <g data-node="enable" transform="translate(20,44)">
+    <title>{"id":"enable","type":"INPUT","label":"enable","x":20,"y":44,"width":80,"height":32,"inputs":[],"outputs":[{"id":"OUT","name":"OUT","net":"enable","x":80,"y":16}]}</title>
+    <g data-symbol="INPUT">
+      <rect data-role="body" width="80" height="32" fill="#eee" stroke="#ccc" stroke-width="1"/>
+      <text x="40" y="20" text-anchor="middle" style="font-family:monospace;font-size:12px;font-weight:500;fill:#000;stroke:none;text-anchor:middle">enable</text>
+    </g>
+  </g>
+  <g data-node="valid" transform="translate(20,84)">
+    <title>{"id":"valid","type":"INPUT","label":"valid","x":20,"y":84,"width":80,"height":32,"inputs":[],"outputs":[{"id":"OUT","name":"OUT","net":"valid","x":80,"y":16}]}</title>
+    <g data-symbol="INPUT">
+      <rect data-role="body" width="80" height="32" fill="#eee" stroke="#ccc" stroke-width="1"/>
+      <text x="40" y="20" text-anchor="middle" style="font-family:monospace;font-size:12px;font-weight:500;fill:#000;stroke:none;text-anchor:middle">valid</text>
+    </g>
+  </g>
+  <g data-node="clock" transform="translate(20,164)">
+    <title>{"id":"clock","type":"INPUT","label":"clk","x":20,"y":164,"width":80,"height":32,"inputs":[],"outputs":[{"id":"OUT","name":"OUT","net":"clk","x":80,"y":16}]}</title>
+    <g data-symbol="INPUT">
+      <rect data-role="body" width="80" height="32" fill="#eee" stroke="#ccc" stroke-width="1"/>
+      <text x="40" y="20" text-anchor="middle" style="font-family:monospace;font-size:12px;font-weight:500;fill:#000;stroke:none;text-anchor:middle">clk</text>
+    </g>
+  </g>
+  <g data-node="G1" transform="translate(180,32)">
+    <title>{"id":"G1","type":"AND","x":180,"y":32,"width":72,"height":52,"inputs":[{"id":"A","name":"A","net":"enable","x":0,"y":28},{"id":"B","name":"B","net":"valid","x":0,"y":44}],"outputs":[{"id":"Y","name":"Y","net":"capture_data","x":72,"y":36}]}</title>
+    <g data-symbol="AND">
+      <path data-role="body" class="gate" d="M16,20H36C56,20 56,28 56,36C56,44 56,52 36,52H16Z" fill="#aaa" stroke="#000" stroke-width="1"/>
+      <g data-port="A">
+        <path d="M0,28L16,28" fill="none" stroke="#000" stroke-width="1"/>
+      </g>
+      <g data-port="B">
+        <path d="M0,44L16,44" fill="none" stroke="#000" stroke-width="1"/>
+      </g>
+      <g data-port="Y" data-role="output">
+        <path d="M56,36L72,36" fill="none" stroke="#000" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+  <g data-node="U1" transform="translate(320,24)">
+    <title>{"id":"U1","type":"DFF","x":320,"y":24,"width":112,"height":76,"inputs":[{"id":"D","name":"D","net":"capture_data","x":0,"y":44},{"id":"CLK","name":"CLK","net":"clk","x":0,"y":60}],"outputs":[{"id":"Q","name":"Q","net":"captured","x":112,"y":44}],"cell":{"type":"DFF","id":"U1","inputs":{"D":"capture_data","CLK":"clk"}}}</title>
+    <g data-symbol="DFF">
+      <title>{"type":"DFF","id":"U1","inputs":{"D":"capture_data","CLK":"clk"}}</title>
+      <text x="16" y="12" font-family="monospace" font-size="12" font-weight="500" fill="#000" stroke="none" style="font-family:monospace;font-size:12px;fill:#000;stroke:none;font-weight:500">U1</text>
+      <rect data-role="body" class="gate" x="16" y="20" width="80" height="48" fill="#aaa" stroke="#000" stroke-width="1"/>
+      <text x="56" y="32" font-family="monospace" font-size="12" font-weight="500" fill="#000" stroke="none" text-anchor="middle" style="font-family:monospace;font-size:12px;fill:#000;stroke:none;font-weight:500;text-anchor:middle">DFF</text>
+      <g data-port="D">
+        <path d="M0,44H16" fill="none" stroke="#000" stroke-width="1"/>
+        <text x="20" y="48" font-family="monospace" font-size="12" font-weight="500" fill="#000" stroke="none" style="font-family:monospace;font-size:12px;fill:#000;stroke:none;font-weight:500">D</text>
+      </g>
+      <g data-port="CLK">
+        <path d="M0,60H16" fill="none" stroke="#000" stroke-width="1"/>
+        <path data-role="clock-edge" d="M16,56l6,4 -6,4" fill="none" stroke="#000" stroke-width="1"/>
+        <text x="26" y="64" font-family="monospace" font-size="12" font-weight="500" fill="#000" stroke="none" style="font-family:monospace;font-size:12px;fill:#000;stroke:none;font-weight:500">CLK</text>
+      </g>
+      <g data-role="output" data-port="Q">
+        <path d="M96,44H112" fill="none" stroke="#000" stroke-width="1"/>
+        <text x="92" y="48" font-family="monospace" font-size="12" font-weight="500" fill="#000" stroke="none" text-anchor="end" style="font-family:monospace;font-size:12px;fill:#000;stroke:none;font-weight:500;text-anchor:end">Q</text>
+      </g>
+    </g>
+  </g>
+  <g data-node="captured" transform="translate(500,52)">
+    <title>{"id":"captured","type":"OUTPUT","label":"captured","x":500,"y":52,"width":80,"height":32,"inputs":[{"id":"IN","name":"IN","net":"captured","x":0,"y":16}],"outputs":[]}</title>
+    <g data-symbol="OUTPUT">
+      <rect data-role="body" width="80" height="32" fill="#eee" stroke="#ccc" stroke-width="1"/>
+      <text x="40" y="20" text-anchor="middle" style="font-family:monospace;font-size:12px;font-weight:500;fill:#000;stroke:none;text-anchor:middle">captured</text>
+    </g>
+  </g>
+</svg>
+
