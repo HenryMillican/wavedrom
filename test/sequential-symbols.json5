@@ -1,0 +1,99 @@
+{
+  title: 'Sequential logic symbol examples',
+  config: { assignColumns: 2 },
+  assign: [
+    ['q_rise', {
+      type: 'DFF',
+      id: 'U1',
+      inputs: {
+        D: 'data',
+        CLK: 'clk',
+        RESET: { net: 'reset_n', active: 'low' },
+        SET: { net: 'set_n', active: 'low' }
+      },
+      edge: 'rising',
+      complement: 'q_rise_n',
+      initial: 0
+    }],
+    ['q_fall_n', {
+      type: 'DFF',
+      id: 'U2',
+      inputs: { D: 'data', CLK: 'clk', RESET: 'reset' },
+      edge: 'falling',
+      output: 'QN',
+      complement: 'q_fall'
+    }],
+    ['q_latch', {
+      type: 'DLATCH',
+      id: 'U3',
+      inputs: { D: 'data', EN: 'enable', RESET: 'reset' },
+      complement: 'q_latch_n'
+    }],
+    ['q_latch_low', {
+      type: 'DLATCH',
+      id: 'U4',
+      inputs: {
+        D: 'data',
+        EN: { net: 'enable_n', active: 'low' }
+      }
+    }],
+    ['q_sr', {
+      type: 'SRLATCH',
+      id: 'U5',
+      inputs: { S: 'set', R: 'reset' },
+      complement: 'q_sr_n'
+    }],
+    ['q_sr_low', {
+      type: 'SRLATCH',
+      id: 'U6',
+      inputs: {
+        S: { net: 'set_n', active: 'low' },
+        R: { net: 'reset_n', active: 'low' }
+      },
+      initial: 0
+    }],
+    ['delayed_on', {
+      type: 'TIMER',
+      id: 'T1',
+      inputs: { IN: 'enable', RESET: 'reset' },
+      mode: 'on-delay',
+      delay: '10 ms'
+    }],
+    ['delayed_off', {
+      type: 'TIMER',
+      id: 'T2',
+      inputs: {
+        IN: 'enable',
+        RESET: { net: 'reset_n', active: 'low' },
+        EN: 'timer_enable'
+      },
+      mode: 'off-delay',
+      delay: '20 ms',
+      complement: 'delayed_off_n'
+    }],
+    ['count_done', {
+      type: 'COUNTER',
+      id: 'C1',
+      inputs: { CLK: 'clk', RESET: 'reset', EN: 'count_enable', LOAD: 'load' },
+      edge: 'rising',
+      count: 32,
+      divider: 8,
+      initial: 0
+    }],
+    ['pulse', {
+      type: 'ONESHOT',
+      id: 'T3',
+      inputs: { IN: 'trigger', RESET: 'reset' },
+      edge: 'falling',
+      delay: '2 ms',
+      complement: 'pulse_n'
+    }],
+    // Use named intermediate nets to combine classic gates and storage.
+    ['capture', ['&', 'enable', 'valid']],
+    ['captured', {
+      type: 'DFF',
+      id: 'U7',
+      inputs: { D: 'capture', CLK: 'clk' }
+    }]
+  ]
+}
