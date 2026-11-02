@@ -1,0 +1,84 @@
+// A fully wired generic example: capture enable AND valid on clk.
+{
+  title: 'Capture an enabled request',
+  circuit: {
+    width: 620,
+    height: 220,
+    nodes: [
+      {
+        id: 'enable', type: 'INPUT', label: 'enable',
+        x: 20, y: 44, width: 80, height: 32,
+        inputs: [],
+        outputs: [{id: 'OUT', name: 'OUT', net: 'enable', x: 80, y: 16}]
+      },
+      {
+        id: 'valid', type: 'INPUT', label: 'valid',
+        x: 20, y: 84, width: 80, height: 32,
+        inputs: [],
+        outputs: [{id: 'OUT', name: 'OUT', net: 'valid', x: 80, y: 16}]
+      },
+      {
+        id: 'clock', type: 'INPUT', label: 'clk',
+        x: 20, y: 164, width: 80, height: 32,
+        inputs: [],
+        outputs: [{id: 'OUT', name: 'OUT', net: 'clk', x: 80, y: 16}]
+      },
+      {
+        id: 'G1', type: 'AND',
+        x: 180, y: 32, width: 72, height: 52,
+        inputs: [
+          {id: 'A', name: 'A', net: 'enable', x: 0, y: 28},
+          {id: 'B', name: 'B', net: 'valid', x: 0, y: 44}
+        ],
+        outputs: [{id: 'Y', name: 'Y', net: 'capture_data', x: 72, y: 36}]
+      },
+      {
+        id: 'U1', type: 'DFF',
+        x: 320, y: 24, width: 112, height: 76,
+        inputs: [
+          {id: 'D', name: 'D', net: 'capture_data', x: 0, y: 44},
+          {id: 'CLK', name: 'CLK', net: 'clk', x: 0, y: 60}
+        ],
+        outputs: [{id: 'Q', name: 'Q', net: 'captured', x: 112, y: 44}],
+        cell: {
+          type: 'DFF', id: 'U1',
+          inputs: {D: 'capture_data', CLK: 'clk'}
+        }
+      },
+      {
+        id: 'captured', type: 'OUTPUT', label: 'captured',
+        x: 500, y: 52, width: 80, height: 32,
+        inputs: [{id: 'IN', name: 'IN', net: 'captured', x: 0, y: 16}],
+        outputs: []
+      }
+    ],
+    edges: [
+      {
+        id: 'enable-G1', net: 'enable',
+        source: {node: 'enable', port: 'OUT'}, target: {node: 'G1', port: 'A'},
+        points: [{x: 100, y: 60}, {x: 180, y: 60}]
+      },
+      {
+        id: 'valid-G1', net: 'valid',
+        source: {node: 'valid', port: 'OUT'}, target: {node: 'G1', port: 'B'},
+        points: [{x: 100, y: 100}, {x: 140, y: 100}, {x: 140, y: 76}, {x: 180, y: 76}]
+      },
+      {
+        id: 'G1-U1', net: 'capture_data',
+        source: {node: 'G1', port: 'Y'}, target: {node: 'U1', port: 'D'},
+        points: [{x: 252, y: 68}, {x: 320, y: 68}]
+      },
+      {
+        id: 'clock-U1', net: 'clk',
+        source: {node: 'clock', port: 'OUT'}, target: {node: 'U1', port: 'CLK'},
+        points: [{x: 100, y: 180}, {x: 280, y: 180}, {x: 280, y: 84}, {x: 320, y: 84}]
+      },
+      {
+        id: 'U1-captured', net: 'captured',
+        source: {node: 'U1', port: 'Q'}, target: {node: 'captured', port: 'IN'},
+        points: [{x: 432, y: 68}, {x: 500, y: 68}]
+      }
+    ],
+    junctions: []
+  }
+}
