@@ -1,6 +1,6 @@
 {
   "name": "wavedrom",
-  "version": "3.8.0-sequential.1",
+  "version": "3.8.0-sequential.2",
   "description": "Digital timing diagram in your browser",
   "homepage": "http://wavedrom.com",
   "author": "alex.drom@gmail.com",
@@ -64,6 +64,7 @@
   },
   "dependencies": {
     "bit-field": "^1.11.0",
+    "elkjs": "^0.12.1",
     "json5": "^2.2.3",
     "logidrom": "^1.2.1",
     "onml": "^2.3.0",
