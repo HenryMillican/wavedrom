@@ -9,6 +9,10 @@ negative-edge, enable, and reset variants. That syntax remains available. This
 extension adds the named-port object form below, complementary outputs, latch
 symbols, and timer/counter/one-shot function blocks.
 
+For a schematic with actual wires between these symbols and the Boolean gates,
+see [Connected logic circuits](connected-circuits.md), including a rendered example
+and the automatic Node layout API.
+
 ## A first example
 
 Use an object as the second element of an assignment to draw a sequential
