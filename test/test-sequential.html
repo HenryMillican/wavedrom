@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WaveDrom sequential symbols</title>
+<script src="../skins/default.js"></script>
+<script src="../wavedrom.js"></script>
+<style>
+  body { margin: 24px; color: #182b3a; font: 15px Arial, sans-serif; }
+  #WaveDrom_Display_0 { overflow: auto; }
+  textarea { width: 100%; height: 300px; box-sizing: border-box; margin: 16px 0; font: 13px monospace; }
+  button { padding: 8px 16px; }
+  #error { color: #a01818; white-space: pre-wrap; }
+</style>
+<h1>WaveDrom sequential symbols</h1>
+<p>Native named-port symbols alongside existing logic trees. This draws circuit intent; it does not simulate state or timing.</p>
+<div id="WaveDrom_Display_0"></div>
+<details><summary>Edit WaveJSON</summary>
+<textarea id="source" aria-label="WaveJSON source">{
+  "title": "Storage and timer examples",
+  "config": {"assignColumns": 2},
+  "assign": [
+    ["q", {"type": "DFF", "id": "U1", "inputs": {"D": "data", "CLK": "clk", "RESET": {"net": "reset_n", "active": "low"}}, "complement": "q_n"}],
+    ["held", {"type": "DLATCH", "id": "U2", "inputs": {"D": "data", "EN": {"net": "enable_n", "active": "low"}}}],
+    ["ready", {"type": "TIMER", "id": "T1", "inputs": {"IN": "enable"}, "mode": "on-delay", "delay": "10 ms"}],
+    ["pulse", {"type": "ONESHOT", "id": "T2", "inputs": {"IN": "trigger"}, "edge": "falling", "delay": "2 ms"}]
+  ]
+}</textarea>
+<button id="render" type="button">Render</button>
+<p id="error" role="status"></p>
+</details>
+<script>
+  function render() {
+    try {
+      WaveDrom.RenderWaveForm(0, JSON.parse(document.getElementById('source').value), 'WaveDrom_Display_');
+      document.getElementById('error').textContent = '';
+    } catch (error) {
+      document.getElementById('error').textContent = error.message;
+    }
+  }
+  document.getElementById('render').addEventListener('click', render);
+  render();
+</script>
+</html>
