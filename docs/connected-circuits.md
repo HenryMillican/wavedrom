@@ -65,6 +65,54 @@ Duplicate assignment drivers, unsupported operators, and requested outputs
 without a driver are rejected. A missing assignment driver otherwise represents
 an external input; it is not evidence that a hardware connection exists.
 
+### Shared constants and clocks
+
+Repeated logic-1 and clock distribution wires can dominate a schematic.
+Declare those sources once in `sharedInputs` to show a local `1` or square-wave
+terminal at every connected input. Their net names appear once in the legend
+and on hover. Reset, enable, and other signal wires retain their explicit paths.
+
+```js
+const shared = await WaveDrom.compileCircuit({
+  title: 'Capture and qualify a request',
+  assign: [
+    ['armed', {
+      type: 'DFF', id: 'U1',
+      inputs: {D: 'logic_one', CLK: 'request', RESET: {net: 'reset_n', active: 'low'}}
+    }],
+    ['ready', {
+      type: 'TIMER', id: 'T1',
+      inputs: {IN: 'armed', CLK: 'clock_source'},
+      mode: 'on-delay', delay: '5 ms'
+    }]
+  ]
+}, {
+  sharedInputs: [
+    {net: 'logic_one', symbol: 'one'},
+    {net: 'clock_source', symbol: 'clock'}
+  ],
+  boundaryPlacement: 'near'
+});
+```
+
+![Shared logic-1 and clock terminals](shared-input-example.svg)
+
+This is an explicit drawing choice: the compiler does not infer that an
+unassigned net is a constant or a clock. Every shared source must be used and
+must have no ordinary output driver or wire in the same graph. Every input
+still has exactly one connection, through a routed edge or a declared shared
+source. Supported symbols are `one` and `clock`.
+
+The resulting `circuit.sharedInputs` array preserves those source definitions
+for the browser and CLI. Layout reserves a 32-unit left gutter at affected
+symbols for the local terminals.
+
+`boundaryPlacement: 'near'` lets boundaries sit near their connections;
+the default `'ends'` keeps inputs at the first layer and outputs at the last.
+`layoutOrder` optionally lists assignment names or boundary labels in preferred
+placement order. Unlisted nodes keep their relative order before listed nodes.
+The existing `layoutOptions` object accepts ELK spacing and layout options.
+
 ## Graph and coordinates
 
 The renderer consumes a graph with explicit symbol positions and wire routes:
